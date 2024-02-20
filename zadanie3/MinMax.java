@@ -25,7 +25,6 @@ public class MinMax<T extends Comparable<T>> {
         this.max = max;
     }
 
-
 }
 
 

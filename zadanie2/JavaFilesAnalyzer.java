@@ -19,7 +19,9 @@ public class JavaFilesAnalyzer {
 
         try {
             Map<DayOfWeek, Long> filesByDayOfWeek = countJavaFilesByDayOfWeek("/Users/gaczor/IdeaProjects/untitled1/src");
-            filesByDayOfWeek.forEach((dayOfWeek, count) -> System.out.println(dayOfWeek + " -> " + count));
+            filesByDayOfWeek.entrySet().stream()
+                    .sorted(Map.Entry.comparingByKey())
+                    .forEach((entry -> System.out.println(entry.getKey() + " -> " + entry.getValue())));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,12 +45,12 @@ public class JavaFilesAnalyzer {
         }
     }
     /*
-    WEDNESDAY -> 45
-    SUNDAY -> 23
-    FRIDAY -> 3
-    THURSDAY -> 67
-    SATURDAY -> 45
     TUESDAY -> 83
+    WEDNESDAY -> 45
+    THURSDAY -> 67
+    FRIDAY -> 3
+    SATURDAY -> 45
+    SUNDAY -> 23
      */
 
 }

@@ -1,7 +1,6 @@
 package zadanie1;
 
 
-
 public class Clothes implements Comparable<Clothes> {
     private String name;
     private int size;

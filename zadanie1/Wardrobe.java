@@ -9,7 +9,7 @@ public class Wardrobe implements Iterable<Clothes> {
     private List<Clothes> clothes;
 
     public Wardrobe() {
-            clothes = new ArrayList<>();
+        clothes = new ArrayList<>();
     }
 
     public List<Clothes> getClothes() {
