@@ -8,6 +8,9 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.TextStyle;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -19,9 +22,11 @@ public class JavaFilesAnalyzer {
 
         try {
             Map<DayOfWeek, Long> filesByDayOfWeek = countJavaFilesByDayOfWeek("/Users/gaczor/IdeaProjects/untitled1/src");
-            filesByDayOfWeek.entrySet().stream()
-                    .sorted(Map.Entry.comparingByKey())
-                    .forEach((entry -> System.out.println(entry.getKey() + " -> " + entry.getValue())));
+            Arrays.stream(DayOfWeek.values())
+                    .forEach(dayOfWeek -> {
+                        Long fileCount = filesByDayOfWeek.getOrDefault(dayOfWeek, 0L);
+                        displayWorkSummary(dayOfWeek, fileCount);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,13 +49,27 @@ public class JavaFilesAnalyzer {
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         }
     }
+
+
+    private static void displayWorkSummary(DayOfWeek dayOfWeek, Long fileCount) {
+        if (fileCount > 0) {
+            System.out.println(getDayOfWeekInPolish(dayOfWeek) + " -> " + fileCount);
+        } else {
+            System.out.println(getDayOfWeekInPolish(dayOfWeek) + " -> W ten dzień nie pracowałeś leniuszku ;)");
+        }
+    }
+
+    private static String getDayOfWeekInPolish(DayOfWeek day) {
+        return day.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("pl-PL"));
+    }
     /*
-    TUESDAY -> 83
-    WEDNESDAY -> 45
-    THURSDAY -> 67
-    FRIDAY -> 3
-    SATURDAY -> 45
-    SUNDAY -> 23
+    poniedziałek -> W ten dzień nie pracowałeś leniuszku ;)
+    wtorek -> 83
+    środa -> 45
+    czwartek -> 67
+    piątek -> 3
+    sobota -> 45
+    niedziela -> 23
      */
 
 }
