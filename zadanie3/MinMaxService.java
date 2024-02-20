@@ -1,4 +1,4 @@
-package ZADANIE3;
+package zadanie3;
 
 import java.util.Collections;
 import java.util.List;

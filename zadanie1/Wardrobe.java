@@ -1,4 +1,4 @@
-package ZADANIE1;
+package zadanie1;
 
 import java.util.ArrayList;
 import java.util.Collections;
